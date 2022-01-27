@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,8 +33,19 @@ public class HelloController {
         return new Response("hello");
     }
 
+    @PostMapping("/session")
+    Response setSession(HttpSession session){
+        session.setAttribute("hello","session");
+        return new Response("success");
+    }
+
+    @GetMapping("/session")
+    Response getSession(HttpSession session){
+        return new Response((String)session.getAttribute("hello"));
+    }
+
     @PostMapping("/file")
-    Response file(MultipartFile file) throws Exception {
+    Response setFile(MultipartFile file) throws Exception {
 
         String current_date = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         String basePath = new File("").getAbsolutePath()+fileUploadPath;
@@ -47,7 +59,6 @@ public class HelloController {
         file.transferTo(dest);
 
         return new Response("IMG URL: "+imageDownUrl);
-
     }
 
 
