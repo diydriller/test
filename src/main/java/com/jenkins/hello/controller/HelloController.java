@@ -32,17 +32,17 @@ public class HelloController {
     Response hello(){
         return new Response("hello");
     }
-
-    @PostMapping("/session")
-    Response setSession(HttpSession session){
-        session.setAttribute("hello","session");
-        return new Response("success");
-    }
-
-    @GetMapping("/session")
-    Response getSession(HttpSession session){
-        return new Response((String)session.getAttribute("hello"));
-    }
+    
+//    @PostMapping("/session")
+//    Response setSession(HttpSession session){
+//        session.setAttribute("hello","session");
+//        return new Response("success");
+//    }
+//
+//    @GetMapping("/session")
+//    Response getSession(HttpSession session){
+//        return new Response((String)session.getAttribute("hello"));
+//    }
 
     @PostMapping("/file")
     Response setFile(MultipartFile file) throws Exception {
