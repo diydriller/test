@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,25 +29,21 @@ public class HelloController {
         private String message;
     }
 
+
     @GetMapping("/")
     Response hello(){
         return new Response("hello");
     }
-    
-//    @PostMapping("/session")
-//    Response setSession(HttpSession session){
-//        session.setAttribute("hello","session");
-//        return new Response("success");
-//    }
-//
-//    @GetMapping("/session")
-//    Response getSession(HttpSession session){
-//        return new Response((String)session.getAttribute("hello"));
-//    }
+
 
     @PostMapping("/file")
     Response setFile(MultipartFile file) throws Exception {
 
+        String imageDownUrl=saveFile(file);
+        return new Response("IMG URL: "+imageDownUrl);
+    }
+
+    String saveFile(MultipartFile file) throws Exception {
         String current_date = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         String basePath = new File("").getAbsolutePath()+fileUploadPath;
 
@@ -57,8 +54,7 @@ public class HelloController {
         String imageDownUrl = fileDownPath + "image" + current_date + "." + imageExt;
         File dest = new File(imagePath);
         file.transferTo(dest);
-
-        return new Response("IMG URL: "+imageDownUrl);
+        return imageDownUrl;
     }
 
 
