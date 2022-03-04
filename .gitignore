@@ -38,7 +38,3 @@ out/
 
 # secret
 /src/main/resources/keystore.p12
-.gitsecret/keys/random_seed
-application.properties
-private-key.key
-ownertrust.txt

@@ -2,7 +2,9 @@ package com.jenkins.hello.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +16,18 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 @RestController
 public class HelloController {
+
 
 
     @Value("${file.upload.path}")
     private String fileUploadPath;
     @Value("${file.down.path}")
     private String fileDownPath;
+    @Value("${test}")
+    private String test;
 
     @Getter
     @AllArgsConstructor
@@ -32,7 +38,7 @@ public class HelloController {
 
     @GetMapping("/")
     Response hello(){
-        return new Response("hello");
+        return new Response(test);
     }
 
 
