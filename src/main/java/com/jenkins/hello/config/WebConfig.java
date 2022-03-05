@@ -41,8 +41,6 @@ public class WebConfig implements WebMvcConfigurer {
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        //logger.info(System.getProperty("jasypt.encryptor.password"));
-        //config.setPassword(System.getProperty("jasypt.encryptor.password"));
         logger.info(password);
         config.setPassword(password);
         config.setAlgorithm("PBEWithMD5AndDES");
