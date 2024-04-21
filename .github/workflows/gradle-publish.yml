@@ -1,0 +1,55 @@
+name: test server CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  S3_BUCKET_NAME: diydriller-s3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: "temurin"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      - name: Make Directory
+        run: mkdir -p test
+
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./test
+
+      - name: Make zip file
+        run: zip -r ./test.zip ./test
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./test.zip s3://$S3_BUCKET_NAME
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name test
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name test
+          --s3-location bucket=diydriller-s3,bundleType=zip,key=test.zip
