@@ -16,8 +16,8 @@ else
   sleep 5
 fi
 
-echo "환경 변수 등록"
-source env
+echo "> 환경 변수 등록"
+source $REPOSITORY/env.txt
 
 echo "> 새 애플리케이션 배포"
 
