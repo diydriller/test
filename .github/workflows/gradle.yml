@@ -32,7 +32,7 @@ jobs:
         run: mkdir -p test
 
       - name: Write Enviroment Variable
-        run : echo HELLO_MESSAGE="${{ secrets.HELLO_MESSAGE }}" > env.txt
+        run : echo HELLO_MESSAGE='${{ secrets.HELLO_MESSAGE }}' > env.txt
 
       - name: Copy env
         run: cp ./env.txt ./test

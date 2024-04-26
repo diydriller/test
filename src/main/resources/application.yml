@@ -1,0 +1,22 @@
+## server
+#server:
+#  port: 8080
+#spring:
+#  application:
+#    name: diydriller
+#  config:
+#    import: 'aws-parameterstore:'
+#hello:
+#  message: ${HELLO_MESSAGE}
+#  profiles:
+#    active: prod
+#
+#aws:
+#  paramstore:
+#    enabled: true
+#    prefix: /dungi
+#    profile-separator: _
+#    name: diydriller
+
+hello:
+  message:
