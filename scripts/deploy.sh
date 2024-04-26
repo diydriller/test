@@ -16,6 +16,9 @@ else
   sleep 5
 fi
 
+echo "환경 변수 등록"
+source env
+
 echo "> 새 애플리케이션 배포"
 
 JAR_NAME=$(ls -tr $REPOSITORY/*SNAPSHOT.jar | tail -n 1)
@@ -28,4 +31,4 @@ chmod +x $JAR_NAME
 
 echo "> $JAR_NAME 실행"
 
-nohup java -jar -Dhello.message=${{ secrets.HELLO_MESSAGE }} -Duser.timezone=Asia/Seoul $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
+nohup java -jar -Dhello.message=$HELLO_MESSAGE -Duser.timezone=Asia/Seoul $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &

@@ -31,6 +31,12 @@ jobs:
       - name: Make Directory
         run: mkdir -p test
 
+      - name: Write Enviroment Variable
+        run : echo HELLO_MESSAGE=${{ secrets.HELLO_MESSAGE }} > env
+
+      - name: Copy env
+        run: cp ./env ./test
+
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./test
 
