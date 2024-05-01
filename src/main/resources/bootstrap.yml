@@ -1,0 +1,7 @@
+#aws:
+#  paramstore:
+#    enabled: true
+#    prefix: /dungi
+#    profileSeparator: _
+#    name: diydriller
+#    defaultContext: application

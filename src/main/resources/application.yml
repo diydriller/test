@@ -1,22 +1,36 @@
-## server
-#server:
-#  port: 8080
-#spring:
-#  application:
-#    name: diydriller
-#  config:
-#    import: 'aws-parameterstore:'
-#hello:
-#  message: ${HELLO_MESSAGE}
-#  profiles:
-#    active: prod
-#
-#aws:
-#  paramstore:
-#    enabled: true
-#    prefix: /dungi
-#    profile-separator: _
-#    name: diydriller
+spring:
+  application:
+    name: diydriller
+  config:
+#    activate:
+#      on-profile: prod
+    import: 'aws-parameterstore:'
+
+
+  profiles:
+    active: prod
+#  cloud:
+#    config:
+#      server:
+#        awsparamstore:
+#          region: ap-northeast-2
+#          endpoint: https://ssm.ap-northeast-2.amazonaws.com
+#          origin: 'aws:parameter:'
+#          prefix: /dungi/config
+#          profile-separator: _
+#          recursive: true
+#          max-results: 5
+
+
+aws:
+  paramstore:
+    enabled: true
+    prefix: /dungi
+    profileSeparator: _
+    name: diydriller
 
 hello:
-  message:
+  message: ${HELLO_MESSAGE}
+
+
+
